@@ -2,6 +2,13 @@ export default function ({ Plugin, types: t }) {
 
   function rebuildConstructor(node, fromDecorator) {
     let insertIndex = 0;
+
+    node.value.body.body.forEach(function(item, i) {
+      if(t.isCallExpression(item.expression) && t.isSuper(item.expression.callee)) {
+        insertIndex = i + 1;
+      }
+    })
+
     fromDecorator.forEach(p => {
       node.value.params.push(t.identifier(p));
       node.value.body.body.splice(
