@@ -6,6 +6,9 @@ export default function ({ Plugin, types: t }) {
     node.value.body.body.forEach(function(item, i) {
       if(t.isCallExpression(item.expression) && t.isSuper(item.expression.callee)) {
         insertIndex = i + 1;
+        fromDecorator.forEach(function (p) {
+          item.expression.arguments.push(t.identifier(p))
+        });
       }
     })
 
