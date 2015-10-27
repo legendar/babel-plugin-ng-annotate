@@ -54,6 +54,7 @@ export default function ({ Plugin, types: t }) {
           node.body.body.forEach(child => {
             if (!hasConstructor && t.isMethodDefinition(child, {kind: 'constructor'})) {
               rebuildConstructor(child, fromDecorator)
+              hasConstructor = true
             }
           });
 
